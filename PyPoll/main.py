@@ -4,12 +4,17 @@ import csv
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 poll_csv = os.path.join('election_data.csv')
 
+#defining some variables...votes will get me the total vote count
+#the empty lists are to place the appropriate voting results. this will determine the overall counts and winner
+
 votes = 0
 khan_votes =[]
 correy_votes = []
 li_votes = []
 otooley_votes = []
 
+
+#function to append voting results to the correct list
 
 def pypoll(election_data):
     if election_data[2] == "Khan":
@@ -34,6 +39,8 @@ with open(poll_csv, 'r') as csvfile:
         votes = votes + 1
         pypoll(row)
     
+    #basic numeric variables. i made them as descriptive as possible
+
     khan_pct = float((len(khan_votes) / votes) * 100)
     correy_pct = float((len(correy_votes) / votes) * 100)
     li_pct = float((len(li_votes) / votes)*100)
@@ -44,7 +51,12 @@ with open(poll_csv, 'r') as csvfile:
     li_pct_rounded = round(li_pct,3)
     otooley_pct_rounded = round(otooley_pct,3)
 
+    #this is a list to determine the final winner, you will take the max of this list and compare it to the lists created in the
+    #function to determine the victor
+
     final_count = [len(khan_votes),len(correy_votes),len(li_votes),len(otooley_votes)]
+
+    #if statement to determine the winner
 
     if max(final_count) == len(khan_votes):
         winner = "Khan"
